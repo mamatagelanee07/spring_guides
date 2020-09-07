@@ -18,9 +18,10 @@ class StudentResource(@Autowired private val studentService: StudentService) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun addStudent(@RequestBody student : Student){
+        val id = UUID.randomUUID()
         studentService.persistNewStudent(
-            studentID = UUID.randomUUID(),
-            student = student
+            studentID = id,
+            student = student.copy(id = id)
         )
     }
 
@@ -30,5 +31,19 @@ class StudentResource(@Autowired private val studentService: StudentService) {
     )
     fun getStudentByID(@PathVariable("studentID") studentID : UUID) : Student?{
         return studentService.getStudentByID(studentID)
+    }
+
+    @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun updateStudent(@RequestBody student : Student){
+        studentService.updateStudentByID(
+            studentID = student.id,
+            newStudent = student
+        )
+    }
+    @DeleteMapping(
+        path = ["{studentID}"]
+    )
+    fun deleteStudentByID(@PathVariable("studentID") studentID : UUID){
+        studentService.deleteStudentByID(studentID)
     }
 }
