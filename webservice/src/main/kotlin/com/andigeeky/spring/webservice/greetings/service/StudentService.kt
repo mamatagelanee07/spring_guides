@@ -11,7 +11,8 @@ import java.util.*
 class StudentService(@Autowired @Qualifier("fakeDAO") private val studentDAO : StudentDAO) {
 
     fun persistNewStudent(studentID: UUID?, student: Student) : Int{
-        return studentDAO.insertNewStudent(studentID ?: UUID.randomUUID() , student)
+        val id = studentID ?: UUID.randomUUID()
+        return studentDAO.insertNewStudent(id, student.copy(id = id))
     }
     fun getStudentByID(studentID: UUID) : Student?{
         return studentDAO.selectStudentByID(studentID)

@@ -23,4 +23,12 @@ class StudentResource(@Autowired private val studentService: StudentService) {
             student = student
         )
     }
+
+    @GetMapping(
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        path = ["{studentID}"]
+    )
+    fun getStudentByID(@PathVariable("studentID") studentID : UUID) : Student?{
+        return studentService.getStudentByID(studentID)
+    }
 }
