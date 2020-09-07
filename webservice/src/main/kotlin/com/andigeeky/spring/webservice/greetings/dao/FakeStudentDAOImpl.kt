@@ -1,8 +1,10 @@
 package com.andigeeky.spring.webservice.greetings.dao
 
 import com.andigeeky.spring.webservice.greetings.model.Student
+import org.springframework.stereotype.Repository
 import java.util.*
 
+@Repository("fakeDAO")
 class FakeStudentDAOImpl : StudentDAO {
 
     private val database: MutableMap<UUID, Student> = mutableMapOf()

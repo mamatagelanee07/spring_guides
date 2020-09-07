@@ -2,11 +2,12 @@ package com.andigeeky.spring.webservice.greetings.service
 
 import com.andigeeky.spring.webservice.greetings.dao.StudentDAO
 import com.andigeeky.spring.webservice.greetings.model.Student
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import java.util.*
 
-class StudentService(
-    private val studentDAO : StudentDAO
-) {
+class StudentService(@Autowired @Qualifier("fakeDao") private val studentDAO : StudentDAO) {
+
     fun persistNewStudent(studentID: UUID?, student: Student) : Int{
         return studentDAO.insertNewStudent(studentID ?: UUID.randomUUID() , student)
     }
