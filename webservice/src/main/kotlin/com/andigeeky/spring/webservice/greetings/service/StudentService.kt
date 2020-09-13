@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class StudentService(@Autowired @Qualifier("fakeDAO") private val studentDAO : StudentDAO) {
+class StudentService(@Autowired @Qualifier("postgres") private val studentDAO : StudentDAO) {
 
     fun persistNewStudent(studentID: UUID?, student: Student) : Int{
         val id = studentID ?: UUID.randomUUID()
